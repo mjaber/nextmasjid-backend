@@ -1,0 +1,141 @@
+﻿@model IbnMasjjed.DomainView.CityLookupView
+@inject IbnMasjjed.DomainView.Models.AppSettings appSettings
+
+@{
+    ViewData["Title"] = "حدود مدينة - " + Model.Name;
+
+    var key = appSettings.GoogleMapConfiguration.key;
+}
+
+
+<div class="card card-default">
+
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+
+        <div class="card-tools">
+            <a asp-action="Index" class="btn btn-secondary">عودة الى القائمة</a>
+        </div>
+    </div>
+
+    <div class="card-body" id="app">
+
+
+        <table class="table table-bordered table-striped dataTable dtr-inline">
+            <thead class="thead-dark">
+                <tr>
+                    <th>التسلسل</th>
+                    <th>المدينة</th>
+                    <th>المنطقة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Name</td>
+                    <td>@Model.Region.Name</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <div class="row mt-lg-5">
+            <div class="col-md-4 col-sm-12">
+
+                <div>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addKmlDialog">
+                        تحميل ملف KML
+                    </button>
+                </div>
+
+                <table class="table">
+                    @*<tr v-for="(polygon, index) in polygonList">
+                        <td>
+                            {{capten.name}}
+                            <span class="badge badge-success" v-if="capten.isNotificationActive">متوفر</span>
+                            <span class="badge badge-danger" v-if="!capten.isNotificationActive">غير متوفر</span>
+                        </td>
+                        <td><i class="fa fa-cc"></i> {{capten.PlateNumber}}</td>
+                        <td>
+                            <i class="fa fa-clock-o"></i> {{capten.lastLocationUpdateDate}}
+                        </td>
+                    </tr>*@
+                </table>
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+                <div style="height:100%; width:100%;">
+                    <div id="map"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="modal fade" id="addKmlDialog">
+            <div class="modal-dialog">
+                <div class="modal-content bg-secondary">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">تحميل ملفات KML</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label>اختر الملف</label>
+                            <input type="file" class="form-control" v-on:change="fileSelected" ref="kmlFileInput"  placeholder="اختر الملف">
+                            <small>فقط الملفات ذات الإمتدات kml مسموح بها</small>
+                        </div>
+
+                        @*<p>{{test}}</p>
+                        <input type="text" v-model="test" />*@
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">إغلاق</button>
+                        <button type="button" class="btn btn-info" v-on:click="saveKml">حفظ الملف</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+@section css
+{
+    <style>
+
+        #map {
+            height: 600px;
+        }
+    </style>
+}
+
+@section Scripts
+{
+    <script src="https://maps.googleapis.com/maps/api/js?key=@key"></script>
+    <script src="@Url.Content("~/lib/axios.min.js")"></script>
+
+    <script src="@Url.Content("~/lib/rxjs.6.6.2.js")"></script>
+    <script src="@Url.Content("~/lib/vueJs/vue.js")"></script>
+
+
+    <script>
+       var _city =  '@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model))';
+    </script>
+
+    <script src="~/pages/City/details.js"></script>
+
+}
+

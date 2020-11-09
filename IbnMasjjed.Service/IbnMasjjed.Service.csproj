@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IbnMasjjed.Context\IbnMasjjed.Context.csproj" />
+    <ProjectReference Include="..\IbnMasjjed.DomainView\IbnMasjjed.DomainView.csproj" />
+    <ProjectReference Include="..\IbnMasjjed.Domain\IbnMasjjed.Domain.csproj" />
+    <ProjectReference Include="..\IbnMasjjed.ServiceInterface\IbnMasjjed.ServiceInterface.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<IbnMasjjed.DomainView.CityLookupView>
+
+@{
+    ViewData["Title"] = "قائمة المدن";
+}
+
+<div class="card card-default">
+
+    <div class="card-header">
+        <h3 class="card-title"></h3>
+
+        @*<div class="card-tools">
+                <a asp-action="Create" class="btn btn-success">مدينة جديدة</a>
+            </div>*@
+    </div>
+
+    <div class="card-body">
+
+
+        <table class="table table-bordered table-striped dataTable dtr-inline">
+            <thead class="thead-dark">
+                <tr>
+                    <th>التسلسل</th>
+                    <th>المدينة</th>
+                    <th>المنطقة</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    foreach (var city in Model)
+                    {
+
+                        <tr>
+                            <td>@city.Id</td>
+                            <td>@city.Name</td>
+                            <td>@city.Region.Name</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@city.Id" class="btn btn-secondary">حدود المدينة</a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+@section css
+{
+    <link rel="stylesheet" href="@Url.Content("~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")">
+}
+
+@section Scripts
+{
+
+    <script src="@Url.Content("~/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-responsive/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")"></script>
+
+    <script>
+        $(function () {
+
+            $('.dataTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    processing: "جاري التحميل ...",
+                    search: "بحث&nbsp;:",
+                    lengthMenu: "عرض _MENU_ صف",
+                    info: "العنصر _START_ من _END_ - _TOTAL_ عناصر",
+                    infoEmpty: "لم يتم العثور على بيانات",
+                    infoFiltered: "(نيجة البحث  _TOTAL_ من _MAX_)",
+                    infoPostFix: "",
+                    loadingRecords: "جاري التحميل ...",
+                    zeroRecords: "لا يوجد بيانات",
+                    emptyTable: "لا يوجد بيانات",
+                    paginate: {
+                        first: "البداية",
+                        previous: "السابق",
+                        next: "التالي",
+                        last: "الأخيرة"
+                    },
+                    aria: {
+                        sortAscending: ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        });
+    </script>
+
+}
